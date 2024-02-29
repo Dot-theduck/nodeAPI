@@ -7,13 +7,6 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 //routes
 
-app.get('/', (req,res) => {
-    res.send('Hello Node API')
-})
-app.get('/blog', (req,res) => {
-    res.send('Hello Blog blaaah')
-})
-
 app.get('/', async(req,res) => {
     try {
         const products = await Product.find({});
@@ -24,7 +17,7 @@ app.get('/', async(req,res) => {
     }
 })
 
-app.get('/products:id', async(req, res) =>{
+app.get('/:id', async(req, res) =>{
     try {
         const {id} = req.params;
         const product = await Product.findById(id);
@@ -35,7 +28,7 @@ app.get('/products:id', async(req, res) =>{
 })
 
 //update a product
-app.put('/products:id', async(req,res) =>{
+app.put('/:id', async(req,res) =>{
     try {
         const {id} = req.params;
         const product = await Product.findByIdAndUpdate(id, req.body);
@@ -62,7 +55,7 @@ app.post('/product', async(req,res) => {
 
 
 //delete a product
-app.delete('/products/:id', async(req, res) =>{
+app.delete('/:id', async(req, res) =>{
     try {
         const {id} = req.params;
         const product = await Product.findByIdAndDelete(id);
